@@ -6,42 +6,49 @@ class MobileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 1024;
+
     return Container(
-      // Usando fundo branco ou cinza muito claro para destacar a imagem
       color: AppColors.surfaceWhite,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
+      padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 24 : 40,
+          vertical: isMobile ? 60 : 80
+      ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1100),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center, // Centraliza imagem e texto verticalmente
+          child: Flex(
+            // No mobile usamos Column (vertical), no desktop Row (horizontal)
+            direction: isMobile ? Axis.vertical : Axis.horizontal,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // COLUNA DE TEXTO
               Expanded(
-                flex: 1,
+                flex: isMobile ? 0 : 1, // No mobile o Expanded(0) não força altura
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Aplicativo Rescue',
+                      textAlign: isMobile ? TextAlign.center : TextAlign.left,
                       style: TextStyle(
-                        fontSize: 42,
+                        fontSize: isMobile ? 32 : 42,
                         fontWeight: FontWeight.bold,
                         color: AppColors.background,
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text(
-                      'Ferramenta pensada para a ponta assistencial: enfermeiros, médicos e '
-                          'equipes de apoio registram cada evento diretamente do smartphone.',
-                      style: TextStyle(
+                    Text(
+                      'Ferramenta pensada para a ponta assistencial: enfermeiros, médicos e equipes de apoio registram cada evento diretamente do smartphone.',
+                      textAlign: isMobile ? TextAlign.center : TextAlign.left,
+                      style: const TextStyle(
                         fontSize: 18,
                         color: Color(0xFF475467),
                         height: 1.5,
                       ),
                     ),
                     const SizedBox(height: 32),
-                    // Lista de funcionalidades com o novo estilo de check verde
                     const _MobileFeature(text: 'Registro rápido de protocolos e sinais vitais.'),
                     const _MobileFeature(text: 'Checklists de procedimentos à beira-leito.'),
                     const _MobileFeature(text: 'Notificações de pendências críticas.'),
@@ -49,25 +56,31 @@ class MobileSection extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(width: 64), // Espaçamento entre texto e imagem
+              // Espaçamento adaptativo
+              SizedBox(
+                  width: isMobile ? 0 : 64,
+                  height: isMobile ? 48 : 0
+              ),
 
-              // COLUNA DA IMAGEM (Substituindo o Ícone)
+              // COLUNA DA IMAGEM
               Expanded(
-                flex: 1,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24), // Bordas arredondadas modernas
-                  child: Image.asset(
-                    'assets/imagens/apk.png', // Caminho da sua imagem
-                    fit: BoxFit.cover,
-                    height: 500, // Altura para dar impacto visual
-                    errorBuilder: (context, error, stackTrace) {
-                      // Placeholder caso a imagem não carregue
-                      return Container(
-                        height: 500,
-                        color: AppColors.background.withOpacity(0.1),
-                        child: const Icon(Icons.image, size: 50),
-                      );
-                    },
+                flex: isMobile ? 0 : 1,
+                child: Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: Image.asset(
+                      'assets/imagens/apk.png',
+                      fit: BoxFit.contain, // Contain é melhor para não cortar o celular na imagem
+                      height: isMobile ? 400 : 500, // Altura um pouco menor no mobile
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: 400,
+                          width: 250,
+                          color: AppColors.background.withValues(alpha: 0.1),
+                          child: const Icon(Icons.smartphone, size: 50, color: AppColors.background),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -89,8 +102,8 @@ class _MobileFeature extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // Ícone de check verde conforme a identidade visual
           const Icon(Icons.check_circle_outline_rounded, size: 22, color: AppColors.success),
           const SizedBox(width: 12),
           Expanded(
