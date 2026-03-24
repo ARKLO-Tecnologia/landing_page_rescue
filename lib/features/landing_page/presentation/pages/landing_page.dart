@@ -17,47 +17,91 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
-      body: ResponsiveBuilder(
-        phone: (context) => const SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                HeaderSection(),
-                HeroSection(),
-                ProblemSection(),
-                SolutionSection(),
-                FeaturesTableSection(),
-                ForensicDifferentialSection(),
-                OperationFlowSection(),
-                MobileSection(),
-                CTASection(),
-                FooterSection(),
-              ],
-            ),
-          ),
-        ),
 
-        desktop: (context) => const SingleChildScrollView(
-          child: Column(
-            children: [
-              HeaderSection(),
-              HeroSection(),
-              ProblemSection(),
-              SolutionSection(),
-              FeaturesTableSection(),
-              ForensicDifferentialSection(),
-              OperationFlowSection(),
-              MobileSection(),
-              CTASection(),
-              FooterSection(),
-            ],
-          ),
+      // 1. ADICIONE O ENDDRAWER AQUI
+      // Ele fica no nível do Scaffold, fora do body.
+      endDrawer: Drawer(
+        backgroundColor: AppColors.background,
+        child: Column(
+          children: [
+            const SizedBox(height: 60),
+            Image.asset(
+              'assets/imagens/logo_web.png',
+              width: 150,
+              color: Colors.white,
+              colorBlendMode: BlendMode.srcIn,
+            ),
+            const Divider(color: Colors.white10, height: 40),
+
+            // Itens do menu mobile
+            _buildDrawerItem('Funcionalidades', context),
+            _buildDrawerItem('Triagem NEWS2', context),
+            _buildDrawerItem('Protocolos', context),
+            _buildDrawerItem('Decision Track', context),
+          ],
         ),
       ),
 
+      body: Column(
+        children: [
+          // Mantendo o Header fixo no topo (opcional, mas recomendado para UX)
+          const HeaderSection(),
+
+          Expanded(
+            child: SingleChildScrollView(
+              child: ResponsiveBuilder(
+                phone: (context) => const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      // HeaderSection removido daqui para não duplicar
+                      HeroSection(),
+                      ProblemSection(),
+                      SolutionSection(),
+                      FeaturesTableSection(),
+                      ForensicDifferentialSection(),
+                      OperationFlowSection(),
+                      MobileSection(),
+                      CTASection(),
+                      FooterSection(),
+                    ],
+                  ),
+                ),
+                desktop: (context) => const Column(
+                  children: [
+                    // HeaderSection removido daqui para não duplicar
+                    HeroSection(),
+                    ProblemSection(),
+                    SolutionSection(),
+                    FeaturesTableSection(),
+                    ForensicDifferentialSection(),
+                    OperationFlowSection(),
+                    MobileSection(),
+                    CTASection(),
+                    FooterSection(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 2. FUNÇÃO AUXILIAR PARA OS ITENS DO MENU MOBILE
+  Widget _buildDrawerItem(String title, BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: const TextStyle(color: Colors.white, fontSize: 16),
+      ),
+      onTap: () {
+        Navigator.pop(context); // Fecha o menu lateral
+        debugPrint('Clicou em: $title');
+      },
     );
   }
 }
