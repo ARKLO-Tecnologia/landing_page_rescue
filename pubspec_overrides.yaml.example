@@ -1,0 +1,9 @@
+# Copie para pubspec_overrides.yaml na raiz do projeto (arquivo gitignored).
+# Permite usar o rescue_design_system local enquanto o pubspec.yaml usa Git (Netlify/CI).
+#
+#   cp pubspec_overrides.yaml.example pubspec_overrides.yaml
+#   flutter pub get
+
+dependency_overrides:
+  rescue_design_system:
+    path: ../rescue_design_system
