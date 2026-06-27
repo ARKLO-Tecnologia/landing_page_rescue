@@ -13,9 +13,7 @@ dependencies:
     sdk: flutter
 
   rescue_design_system:
-    git:
-      url: https://github.com/ARKLO-Tecnologia/rescue_design_system.git
-      ref: 0a74f720c7ff1d735e6691bafbd3a66ae6d16431
+    path: ../rescue_design_system
 
   get_it: ^8.0.3
   equatable: ^2.0.7

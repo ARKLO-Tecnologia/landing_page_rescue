@@ -451,11 +451,9 @@ packages:
   rescue_design_system:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "0a74f720c7ff1d735e6691bafbd3a66ae6d16431"
-      resolved-ref: "0a74f720c7ff1d735e6691bafbd3a66ae6d16431"
-      url: "https://github.com/ARKLO-Tecnologia/rescue_design_system.git"
-    source: git
+      path: "../rescue_design_system"
+      relative: true
+    source: path
     version: "0.0.1+1"
   sky_engine:
     dependency: transitive
