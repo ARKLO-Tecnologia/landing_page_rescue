@@ -1,11 +1,11 @@
 {
-    "name": "landing_page_emergency",
-    "short_name": "landing_page_emergency",
+    "name": "Rescue Pitchtech",
+    "short_name": "Rescue Pitchtech",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0B2340",
+    "theme_color": "#0B2340",
+    "description": "Landing page do Rescue — gestão de emergência com rastreabilidade total.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

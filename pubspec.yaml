@@ -1,6 +1,6 @@
-name: landing_page_emergency
+name: rescue_pitchtech
 description: >
-  Landing page de gestão de emergência convertida de React/Vite para Flutter.
+  Rescue Pitchtech — landing page de gestão de emergência em Flutter.
 publish_to: "none"
 
 version: 1.0.0+1
@@ -12,22 +12,49 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Ícones do Material
-  cupertino_icons: ^1.0.8
-  provider: ^6.1.2
+  rescue_design_system:
+    git:
+      url: https://github.com/ARKLO-Tecnologia/rescue_design_system.git
+      ref: 0a74f720c7ff1d735e6691bafbd3a66ae6d16431
+
+  get_it: ^8.0.3
+  equatable: ^2.0.7
+  dartz: ^0.10.1
+  dio: ^5.8.0+1
+  url_launcher: ^6.3.1
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
-  vector_math: ^2.1.4
+  flutter_lints: ^5.0.0
+  mocktail: ^1.0.4
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
+  config:
+    enable-lldb-debugging: false
   uses-material-design: true
   assets:
-    - assets/imagens/rescue_logo.png
-    - assets/imagens/App.png
-    - assets/imagens/apk.png
-    - assets/imagens/medical.png
-    - assets/imagens/logo_web.png
+    - assets/imagens/
 
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/imagens/app_icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#0B2340"
+  adaptive_icon_foreground: "assets/imagens/app_icon_foreground.png"
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/imagens/app_icon.png"
+    background_color: "#0B2340"
+    theme_color: "#0B2340"
+  windows:
+    generate: true
+    image_path: "assets/imagens/app_icon.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/imagens/app_icon.png"
