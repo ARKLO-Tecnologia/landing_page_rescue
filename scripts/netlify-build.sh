@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Configura o Git globalmente para usar o Token clássico injetado pela Netlify
+# Configura o Git para usar o Token Clássico APENAS nos repositórios da ARKLO-Tecnologia
 if [ -n "$GITHUB_TOKEN" ]; then
-  git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-  echo "✅ Credenciais do GitHub aplicadas com sucesso."
+  git config --global url."https://${GITHUB_TOKEN}@github.com/ARKLO-Tecnologia/".insteadOf "https://github.com/ARKLO-Tecnologia/"
+  echo "✅ Credenciais do GitHub aplicadas especificamente para ARKLO-Tecnologia."
 else
   echo "❌ Erro: GITHUB_TOKEN não configurado no ambiente da Netlify."
   exit 1
