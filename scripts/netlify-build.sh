@@ -1,15 +1,14 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
 
-# rescue_design_system é repositório privado — pub get precisa de credencial GitHub.
-if [ -z "${GITHUB_TOKEN:-}" ]; then
-  echo "❌ GITHUB_TOKEN não definido."
-  echo "   Netlify → Site configuration → Environment variables"
-  echo "   Crie um PAT (classic) com escopo 'repo' e adicione como GITHUB_TOKEN."
+# Configura o Git globalmente para usar o Token injetado pela Netlify antes de baixar as dependências
+if [ -n "$GITHUB_TOKEN" ]; then
+  git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+  echo "✅ Credenciais do GitHub aplicadas com sucesso."
+else
+  echo "❌ Erro: GITHUB_TOKEN não configurado no ambiente."
   exit 1
 fi
 
-git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-
+# Executa a limpeza e o build do Flutter
 flutter pub get
-flutter build web --release --no-wasm-dry-run
+flutter build web --release
