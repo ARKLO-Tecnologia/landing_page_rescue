@@ -34,6 +34,15 @@ migrate_working_dir/
 /coverage/
 pubspec_overrides.yaml
 
+# Artefatos de build web — nunca commitar (gerados em build/web)
+web/main.dart.js
+web/flutter.js
+web/flutter_bootstrap.js
+web/flutter_service_worker.js
+web/version.json
+web/assets/
+web/canvaskit/
+
 # Symbolication related
 app.*.symbols
 

@@ -9,6 +9,10 @@ else
   exit 1
 fi
 
-# Executa o build do Flutter
+# Remove artefatos de build antigos que possam estar no repo (forçam layout desatualizado).
+rm -f web/main.dart.js web/flutter.js web/flutter_bootstrap.js web/flutter_service_worker.js web/version.json
+rm -rf web/assets web/canvaskit
+
+flutter clean
 flutter pub get
 flutter build web --release
